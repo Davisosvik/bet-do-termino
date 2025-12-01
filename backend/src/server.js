@@ -1,29 +1,39 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import authRoutes from './routes/authRoutes.js';
+// backend/src/server.js
+import express from "express";
+import cors from "cors";
+import { PORT } from "./config.js";
+import { connectDB } from "./db.js";
 
-dotenv.config();
+import authRoutes from "./routes/authRoutes.js";
+import betsRoutes from "./routes/betsRoutes.js";
 
 const app = express();
 
-// 🟢 PERMITIR RECEBER JSON
 app.use(express.json());
-
-// 🟢 PERMITIR REQUISIÇÕES DO FRONT
 app.use(cors());
 
-// 🟢 ROTAS
-app.use('/auth', authRoutes);
+try {
+  await connectDB();
+  console.log("🟢 Banco conectado com sucesso");
+} catch (err) {
+  console.error("❌ Erro ao conectar no banco:", err);
+}
 
-// 🟢 CONEXÃO COM O BANCO
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB conectado!"))
-  .catch(err => console.log("Erro ao conectar no MongoDB:", err));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-
-import betsRoutes from "./routes/betsRoutes.js";
+// rotas
+app.use("/api/auth", authRoutes);
 app.use("/api/bets", betsRoutes);
+
+// rota de health
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", uptime: process.uptime() });
+});
+
+// erro final
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: "Internal server error" });
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server rodando na porta ${PORT}`);
+});

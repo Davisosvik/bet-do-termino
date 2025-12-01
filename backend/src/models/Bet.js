@@ -1,3 +1,4 @@
+// backend/src/models/Bet.js
 import mongoose from "mongoose";
 
 const optionSchema = new mongoose.Schema({
