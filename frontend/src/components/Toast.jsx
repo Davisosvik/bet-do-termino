@@ -1,17 +1,29 @@
 // src/components/Toast.jsx
-import React, { useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import "../styles/toast.css";
 
-export default function Toast({ id, type = "info", message, duration = 3500, onClose }) {
+export default function Toast() {
+  const [toast, setToast] = useState(null);
+
   useEffect(() => {
-    const t = setTimeout(() => onClose(id), duration);
-    return () => clearTimeout(t);
-  }, [id, duration, onClose]);
+    function handler(e) {
+      setToast(e.detail);
+
+      setTimeout(() => {
+        setToast(null);
+      }, 3000);
+    }
+
+    window.addEventListener("toast", handler);
+    return () => window.removeEventListener("toast", handler);
+  }, []);
+
+  if (!toast) return null;
 
   return (
-    <div className={`toast ${type}`}>
-      <div className="toast-message">{message}</div>
-      <button className="toast-close" onClick={() => onClose(id)}>×</button>
+    <div className={`toast toast-${toast.type}`}>
+      {toast.message}
     </div>
   );
 }

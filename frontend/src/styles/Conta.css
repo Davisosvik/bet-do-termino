@@ -1,0 +1,108 @@
+.conta-page {
+  padding: 22px;
+}
+
+/* SALDO */
+.saldo-card {
+  background: linear-gradient(135deg, #e63946, #b81f2a);
+  padding: 26px;
+  border-radius: 18px;
+  color: white;
+  margin-bottom: 25px;
+  box-shadow: 0 0 25px rgba(230, 57, 70, 0.25);
+}
+
+.saldo-label {
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+.saldo-valor {
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+
+.btn-depositar {
+  background: white;
+  color: #e63946;
+  padding: 12px;
+  border-radius: 12px;
+  width: 100%;
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-depositar:hover {
+  background: #fff6f6;
+}
+
+/* DADOS DO USUÁRIO */
+.user-card {
+  background: #111;
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid #222;
+  margin-bottom: 25px;
+}
+
+.user-card h2 {
+  margin-bottom: 14px;
+}
+
+.linha-info {
+  display: flex;
+  justify-content: space-between;
+  background: #181818;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.info-titulo {
+  opacity: 0.6;
+}
+
+.info-texto.id {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* AÇÕES */
+.acoes-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acao-btn {
+  background: #222;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.acao-btn:hover {
+  background: #333;
+}
+
+.acao-btn.sair {
+  background: #e63946;
+}
+
+.acao-btn.sair:hover {
+  background: #ff4d5b;
+}
+
+/* Loading */
+.loading {
+  padding: 20px;
+  text-align: center;
+  opacity: 0.6;
+}

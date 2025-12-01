@@ -1,41 +1,71 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
-import { login } from "../api/api";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/api";
+import showToast from "../utils/showToast";
+import "../styles/auth.css";
 
-export default function Login({ onNavigate, onLogin }) {
+export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e) {
+  const login = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setMsg(null);
 
-    const result = await login(email, password);
+    try {
+      const res = await api.post("/auth/login", { email, password });
 
-    if (result.success) {
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("user", JSON.stringify(result.user));
-      setMsg("Login realizado com sucesso!");
-      onLogin(result.user);
-    } else {
-      setMsg(result.message);
+      // SALVAR TOKEN
+      localStorage.setItem("token", res.data.token);
+
+      // SALVAR DADOS DO USUÁRIO
+      localStorage.setItem("balance", res.data.user.balance);
+      localStorage.setItem("username", res.data.user.username);
+      localStorage.setItem("email", res.data.user.email);
+
+      showToast("Login realizado com sucesso!", "success");
+
+      // REDIRECIONA
+      setTimeout(() => navigate("/"), 700);
+    } catch (err) {
+      showToast("Email ou senha incorretos.", "error");
     }
-    setLoading(false);
-  }
+  };
 
   return (
-    <div className="container auth">
-      <h1>🎲 Bet do Término</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Seu Email" value={email} onChange={e=>setEmail(e.target.value)} required />
-        <input type="password" placeholder="Sua Senha" value={password} onChange={e=>setPassword(e.target.value)} required />
-        <button type="submit" className="btn-primary" disabled={loading}>{loading ? "Entrando..." : "Entrar"}</button>
-      </form>
-      <p>Não tem conta? <span onClick={() => onNavigate("register")}>Registrar</span></p>
-      {msg && <p className="info">{msg}</p>}
+    <div className="auth-wrapper fade-in">
+      <div className="auth-box">
+        <h1>Entrar</h1>
+        <p className="subtitle">Bem-vindo ao Alef & Larissa BET 💔</p>
+
+        <form onSubmit={login}>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Digite seu email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <label>Senha</label>
+          <input
+            type="password"
+            placeholder="Digite sua senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button className="auth-btn" type="submit">
+            Entrar
+          </button>
+        </form>
+
+        <p className="switch-auth">
+          Ainda não tem conta? <Link to="/register">Registrar</Link>
+        </p>
+      </div>
     </div>
   );
 }

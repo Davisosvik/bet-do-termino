@@ -1,0 +1,88 @@
+/* Botão flutuante */
+.slip-button {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  background: #6c5ce7;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px #0005;
+  transition: 0.2s;
+  z-index: 2000;
+}
+
+.slip-button:hover {
+  transform: scale(1.1);
+}
+
+/* Sidebar */
+.slip-sidebar {
+  position: fixed;
+  right: -350px;
+  top: 0;
+  height: 100vh;
+  width: 350px;
+  background: #1f1f1f;
+  color: white;
+  padding: 20px;
+  transition: 0.3s;
+  overflow-y: auto;
+  z-index: 1999;
+  border-left: 3px solid #6c5ce7;
+}
+
+.slip-sidebar.open {
+  right: 0;
+}
+
+.slip-item {
+  background: #2c2c2c;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.slip-item .odds {
+  color: #6c5ce7;
+}
+
+.slip-item input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.confirm-btn {
+  width: 100%;
+  background: #6c5ce7;
+  border: none;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  width: 100%;
+  background: #e74c3c;
+  border: none;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.total-return {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+}

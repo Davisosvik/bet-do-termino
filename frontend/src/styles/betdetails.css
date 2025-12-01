@@ -1,0 +1,84 @@
+.details-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.details-left {
+  flex: 1;
+}
+
+.details-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.details-description {
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 18px;
+}
+
+.info-box {
+  background: #1d1d20;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  border: 1px solid #29292f;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.option-card {
+  background: #242428;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px #00000040;
+}
+
+.option-label {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.odds-btn {
+  background: #3b82f6;
+  padding: 6px 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.pool-amount {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.details-slip {
+  width: 360px;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 16px;
+  color: #bbb;
+}

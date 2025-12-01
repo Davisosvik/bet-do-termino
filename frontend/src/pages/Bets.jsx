@@ -1,75 +1,79 @@
+// src/pages/Bets.jsx
 import React, { useEffect, useState } from "react";
-import { getBets, placeWager, getBet } from "../api/api";
-import BetCard from "../components/BetCard";
+import api from "../api/api";
+import showToast from "../utils/showToast";
+import BetSlipSidebar from "../components/BetSlipSidebar";
+import "./bets.css";
 
 export default function Bets() {
   const [bets, setBets] = useState([]);
-  const [selected, setSelected] = useState(null);
-  const [amount, setAmount] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
-  const [msg, setMsg] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [slip, setSlip] = useState([]);
 
-  useEffect(() => { load(); }, []);
-
-  async function load() {
-    const res = await getBets();
-    if (res.success) setBets(res.bets);
-  }
-
-  function openBet(bet) {
-    setSelected(bet);
-    setSelectedOption(bet.options?.[0]?.id || "");
-    setAmount("");
-    setMsg(null);
-  }
-
-  async function handleWager() {
-    if (!selected || !selectedOption || !amount) { setMsg("Preencha tudo"); return; }
-    setLoading(true);
-    const res = await placeWager(selected._id, { optionId: selectedOption, amount: Number(amount) });
-    if (res.success) {
-      setMsg("Aposta registrada!");
-      await load();
-    } else {
-      setMsg(res.message || "Erro");
+  const loadBets = async () => {
+    try {
+      const res = await api.get("/bets");
+      setBets(res.data.bets || []);
+    } catch (err) {
+      showToast("Erro ao carregar apostas!", "error");
     }
-    setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    loadBets();
+  }, []);
+
+  const addToSlip = (bet, opt) => {
+    setSlip((prev) => [
+      ...prev,
+      {
+        betId: bet._id,
+        betTitle: bet.title,
+        optionId: opt.id,
+        label: opt.label,
+        odds: opt.odds,
+        amount: 0,
+      },
+    ]);
+
+    showToast("Adicionado ao bilhete!", "success");
+  };
 
   return (
-    <div className="bets-page">
-      <h2>Apostas</h2>
+    <div className="bets-page fade-in">
 
-      <div className="bets-grid">
-        {bets.map(b => <BetCard key={b._id} bet={b} onOpen={openBet} />)}
+      <h1 className="bets-title">Apostas sobre Alef & Larissa 💔</h1>
+
+      {bets.length === 0 && <p className="empty">Nenhuma aposta disponível.</p>}
+
+      <div className="bets-list">
+        {bets.map((bet) => (
+          <div key={bet._id} className="bet-card">
+            <h2 className="category-title">{bet.title}</h2>
+
+            <div className="bet-options">
+              {bet.options.map((opt) => (
+                <div key={opt.id} className="option-item">
+                  <div className="label">{opt.label}</div>
+
+                  <button
+                    className="odd-btn"
+                    onClick={() => addToSlip(bet, opt)}
+                  >
+                    {opt.odds.toFixed(2)}
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="footer">
+              Fecha em: <b>{new Date(bet.endsAt).toLocaleString()}</b>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {selected && (
-        <div className="modal">
-          <h3>{selected.title}</h3>
-          <p>{selected.description}</p>
-
-          <div>
-            {selected.options.map(opt => (
-              <label key={opt.id} style={{ display:"block", margin:"8px 0" }}>
-                <input type="radio" name="opt" value={opt.id}
-                  checked={selectedOption === opt.id}
-                  onChange={() => setSelectedOption(opt.id)} />
-                {" "}{opt.label} — odds {opt.odds}
-              </label>
-            ))}
-          </div>
-
-          <input type="number" placeholder="Quantidade (pts)" value={amount} onChange={(e)=>setAmount(e.target.value)} />
-          <div style={{ marginTop:8 }}>
-            <button onClick={handleWager} disabled={loading}>{loading ? "Apostando..." : "Confirmar aposta"}</button>
-            <button onClick={() => setSelected(null)} style={{ marginLeft:8 }}>Fechar</button>
-          </div>
-
-          {msg && <p style={{ marginTop:10 }}>{msg}</p>}
-        </div>
-      )}
+      {/* AGORA FUNCIONA! */}
+      <BetSlipSidebar slip={slip} setSlip={setSlip} />
     </div>
   );
 }

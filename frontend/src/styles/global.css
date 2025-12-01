@@ -1,0 +1,80 @@
+/* ----------------------------- */
+/*        ESTILO GLOBAL          */
+/* ----------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #0d0f10;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fade suave */
+.fade-in {
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Botões padrão */
+.btn {
+  background: #2d6cdf;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #1f54b7;
+}
+
+/* Botão Ghost */
+.btn-ghost {
+  background: transparent;
+  color: #2d6cdf;
+  border: 2px solid #2d6cdf;
+}
+
+.btn-ghost:hover {
+  background: rgba(45, 108, 223, 0.15);
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+  background: #111315;
+  color: white;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #2d6cdf;
+  box-shadow: 0 0 0 2px rgba(45, 108, 223, 0.25);
+  outline: none;
+}
+
+/* Cards moderno */
+.card {
+  background: #111315;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid #1e1e1e;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}

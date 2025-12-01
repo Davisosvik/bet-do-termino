@@ -1,33 +1,42 @@
 // src/pages/Deposito.jsx
-import React from "react";
 
-export default function Deposito({ onNavigate }) {
+import React, { useState } from "react";
+import { showToast } from "../utils/toastManager";
+import "../styles/Conta.css";
+import { useNavigate } from "react-router-dom";
+
+export default function Deposito() {
+  const navigate = useNavigate();
+  const [amount, setAmount] = useState("");
+
+  const handleDeposit = () => {
+    if (!amount || amount <= 0) {
+      showToast("Insira um valor válido!", "warning");
+      return;
+    }
+
+    showToast("Depósito confirmado! (Simulação)", "success");
+
+    setTimeout(() => navigate("/conta"), 1200);
+  };
+
   return (
-    <div className="app-wrapper">
-      <div className="dashboard-container">
-        <div className="topbar">
-          <div className="brand" onClick={() => onNavigate("dashboard")}>🎯 BET DO TÉRMINO</div>
-          <div><button className="icon-btn" onClick={() => onNavigate("conta")}>Voltar</button></div>
-        </div>
+    <div className="conta-container">
+      <h2>Adicionar Saldo</h2>
 
-        <div style={{marginTop:18}}>
-          <div className="card">
-            <h3>Depositar — PIX</h3>
-            <p>Escolha um valor e siga as instruções do PIX (simulado).</p>
-            <div style={{display:"flex",gap:8,marginTop:8}}>
-              <button className="btn">R$10</button>
-              <button className="btn">R$20</button>
-              <button className="btn">R$50</button>
-            </div>
+      <div className="conta-card">
+        <p>Insira o valor que deseja adicionar:</p>
 
-            <div style={{marginTop:12}}>
-              <div style={{background:"#fff",padding:8,borderRadius:8}}>QR CODE (simulado)</div>
-              <div style={{marginTop:8}}>
-                <button className="btn ghost">Copiar chave PIX</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <input
+          type="number"
+          placeholder="Valor (R$)"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        <button className="conta-btn" onClick={handleDeposit}>
+          Depositar
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,117 @@
+/* ================================
+   PÁGINA DE APOSTAS — bets.css
+   Estilo inspirado em Stake / Betano
+================================ */
+
+.bets-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* BLOCO PRINCIPAL */
+.bets-page {
+  flex: 1;
+}
+
+.bets-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.empty {
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* CARTÃO DA APOSTA */
+.bet-card {
+  background: #1d1f24;
+  padding: 18px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #2a2d33;
+  transition: 0.2s;
+}
+
+.bet-card:hover {
+  border-color: #6ee7ff;
+  box-shadow: 0 0 12px rgba(110, 231, 255, 0.2);
+}
+
+.category-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+/* OPÇÕES */
+.bet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-item {
+  background: #262930;
+  padding: 14px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.option-item:hover {
+  background: #30333b;
+}
+
+/* LABEL */
+.label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e2e8f0;
+  max-width: 70%;
+}
+
+/* BOTÃO DA ODD */
+.odd-btn {
+  background: #1fa855;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.odd-btn:hover {
+  background: #26c566;
+  transform: scale(1.06);
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #aaa;
+}
+.bets-container {
+  display: flex;
+  gap: 25px;
+  padding: 20px;
+}
+
+.bets-page {
+  flex: 1;
+}
+
+.betslip-box {
+  width: 320px;
+}
